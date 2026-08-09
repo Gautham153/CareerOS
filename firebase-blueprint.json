@@ -1,0 +1,142 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Represents the user's profile and UI configuration settings.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The unique Firebase Authentication UID of the user."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The user's email address."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The user's display name."
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "Optional URL to the user's avatar image."
+        },
+        "plan": {
+          "type": "string",
+          "enum": ["FREE", "PRO"],
+          "description": "The user's current subscription plan."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO timestamp of when the user account was created."
+        },
+        "theme": {
+          "type": "string",
+          "enum": ["light", "dark", "system"],
+          "description": "The visual theme preference."
+        },
+        "accentColor": {
+          "type": "string",
+          "enum": ["purple", "blue", "indigo", "emerald"],
+          "description": "The app accent color preference."
+        },
+        "compactMode": {
+          "type": "boolean",
+          "description": "Whether compact layout spacing is enabled."
+        },
+        "language": {
+          "type": "string",
+          "description": "The preferred language."
+        },
+        "sidebarCollapsed": {
+          "type": "boolean",
+          "description": "Whether the sidebar is collapsed."
+        },
+        "animationSpeed": {
+          "type": "string",
+          "enum": ["slow", "normal", "fast"],
+          "description": "Animation transition speed preference."
+        },
+        "aiModel": {
+          "type": "string",
+          "description": "The chosen AI model for suggestions."
+        },
+        "autosave": {
+          "type": "boolean",
+          "description": "Whether changes are automatically saved."
+        }
+      },
+      "required": ["uid", "email", "displayName", "plan", "createdAt"]
+    },
+    "Activity": {
+      "title": "Activity",
+      "description": "Represents a single system or user activity log entry.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the activity log."
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of activity (e.g., system, auth, resume)."
+        },
+        "text": {
+          "type": "string",
+          "description": "Descriptive text of the action performed."
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO timestamp of when the activity occurred."
+        }
+      },
+      "required": ["id", "type", "text", "timestamp"]
+    },
+    "Resume": {
+      "title": "Resume",
+      "description": "Metadata for an uploaded resume file.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique ID of the resume."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the file uploaded."
+        },
+        "size": {
+          "type": "number",
+          "description": "Size of the file in bytes."
+        },
+        "uploadedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO timestamp of when the file was uploaded."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to access the file from storage."
+        }
+      },
+      "required": ["id", "name", "size", "uploadedAt", "url"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Stores user profiles and configuration documents."
+    },
+    "/users/{userId}/activity/{activityId}": {
+      "schema": "Activity",
+      "description": "Collection of user's local and system activity logs."
+    },
+    "/users/{userId}/resumes/{resumeId}": {
+      "schema": "Resume",
+      "description": "Collection of resumes uploaded by the user."
+    }
+  }
+}

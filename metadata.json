@@ -1,0 +1,6 @@
+{
+  "name": "CareerOS AI",
+  "description": "The AI Operating System for Your Career.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
